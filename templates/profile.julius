@@ -1,0 +1,27 @@
+function fillProfile(userInfo) {
+    $(".profile-name").text(userInfo.name);
+    $(".profile-pictureURL").attr("src", userInfo.pictureURL);
+    $(".profile-link").attr("href", userInfo.link);
+}
+
+function loadUserMessages(messagesURL) {
+  $.get(messagesURL, null, function(data) {
+    if (data.error != null) {
+      alert("error");
+    } else {
+      onMessageLoad(data);
+    }
+  });
+}
+
+$((function(){
+  $.get("@{SelfProfileR}", null, function(data){
+      if (data.error != null) {
+          alert("error");
+      }else{
+          fillProfile(data);
+          loadUserMessages(data.messagesURL);
+      }
+  });
+    
+})());

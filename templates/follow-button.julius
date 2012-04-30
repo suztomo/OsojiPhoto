@@ -1,0 +1,56 @@
+function f(ary){
+    var r = {};
+    var i;
+    for(i=0; i<ary.length; ++i) {
+        r[ary[i]["name"]] = ary[i]["value"];
+    }
+    return r;
+}
+$("#submit-#{fvId targetIdInput}").click(function(event){
+  d = f($("#form-#{fvId targetIdInput}").serializeArray());
+  $.ajax({
+    type: "POST",
+    url: "@{AddFollowR}",
+    data: d,
+    success: function(a) {
+        $("#submit-#{fvId targetIdInput}").hide();
+        $("#remove-submit-#{fvId targetIdInput}").show();
+    }
+  });
+  return false;
+});
+$("#remove-submit-#{fvId targetIdInput}").click(function(event){
+  console.log(event);
+  d = f($("#remove-form-#{fvId targetIdInput}").serializeArray());
+  $.ajax({
+    type: "POST",
+    url: "@{RemoveFollowR}",
+    data: d,
+    success: function(a) {
+        $("#remove-submit-#{fvId targetIdInput}").hide();
+        $("#submit-#{fvId targetIdInput}").show();
+    }
+  });
+  return false;
+});
+/*
+onLogin(function(){
+    $.get("@{IsFollowingR (unpack targetId)}", null, function(data){
+        if (data.following == "true") {
+            $("#remove-submit-#{fvId targetIdInput}").fadeIn();
+        } else {
+            $("#submit-#{fvId targetIdInput}").fadeIn();
+        }        
+    });
+});
+*/
+$((function(){
+    $.get("@{IsFollowingR (unpack targetId)}", null, function(data){
+        if (data.following == "true") {
+            $("#remove-submit-#{fvId targetIdInput}").fadeIn();
+        } else {
+            $("#submit-#{fvId targetIdInput}").fadeIn();
+        }        
+    });
+})());
+
