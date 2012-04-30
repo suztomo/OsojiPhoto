@@ -1,0 +1,20 @@
+Default: &defaults
+  database: OsojiPhoto.sqlite3
+  poolsize: 10
+
+Development:
+  <<: *defaults
+
+Test:
+  database: OsojiPhoto_test.sqlite3
+  <<: *defaults
+
+Staging:
+  database: OsojiPhoto_staging.sqlite3
+  poolsize: 100
+  <<: *defaults
+
+Production:
+  database: OsojiPhoto_production.sqlite3
+  poolsize: 100
+  <<: *defaults

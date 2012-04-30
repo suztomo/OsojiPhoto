@@ -1,0 +1,30 @@
+/static StaticR Static getStatic
+/auth   AuthR   Auth   getAuth
+
+
+/favicon.ico FaviconR GET
+/robots.txt RobotsR GET
+
+/ RootR GET
+/messages/all.json OsojiMessagesR GET
+/public PublicHomeR GET
+/about AboutR GET
+/home HomeR GET
+/profile/self.json SelfProfileR GET
+/profile ProfileR GET
+/message/#OsojiPostId MessageR GET
+/message/delete/#OsojiPostId DeleteMessageR GET
+/user/#Text UserR GET
+/user/#Text/profile.json UserInfoR GET
+/user/#Text/messages.json UserOsojiMessagesR GET
+/news/read/#NewsId ReadNewsR GET
+/news/num/#Int/page/#Int ListNewsR GET
+/profile/follow/users.json FollowingUsersR GET
+/profile/follow/messages.json FollowingMessagesR GET
+/profile/follow/#String/status.json IsFollowingR GET
+/profile/follow/posts.json FollowingPostsR GET
+/profile/follow/add.json AddFollowR POST
+/profile/follow/remove.json RemoveFollowR POST
+
+/m  MobileRootR GET
+/m/about  MobileAboutR GET
