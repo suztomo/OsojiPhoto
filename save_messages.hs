@@ -24,7 +24,7 @@ import Control.Applicative
 import Data.Time.Clock
 import Data.Text (unpack, pack, append)
 import Yesod
-import Foundation
+import Import
 import Handler.Follow
 import Database.Persist.Store
 
@@ -121,7 +121,7 @@ printMessages filepath = do
     Right msgs -> printOsojiMessages msgs
 
 
-dbFileName = "OsojiPhoto_production.sqlite3"
+dbFileName = "OsojiPhoto.sqlite3"
 
 saveOsojiMessage :: OsojiMessage -> SqlPersist IO (Key SqlPersist (OsojiPostGeneric SqlPersist))
 saveOsojiMessage (GMsg (GUser googleId name userImageURL userLink) verb
@@ -133,7 +133,7 @@ saveOsojiMessage (GMsg (GUser googleId name userImageURL userLink) verb
                 let u = OsojiUser googleId name userImageURL userLink
                 k <- insert $ u
                 return (k, u)
-  postId <- insert $ OsojiPost message linkURL userId
+  postId <- insert $ OsojiPost message linkURL userId False
   mapM (\(Image url t) -> 
         insert $ OsojiImage url "aaa" postId) imgs
   _ <- saveNewsOfPost (userId, user) postId
