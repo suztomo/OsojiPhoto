@@ -1,4 +1,6 @@
 <h2>おそうじフォト
-<p>
-   <a href="@{MobileAboutR}" data-ajax="false">リンクのテスト</a>
+<ul>
+   <li><a href="@{MobilePublicR}" data-ajax="false">最新のおそうじフォト</a>
+   <li><a href="@{MobileAboutR}" data-ajax="false">このサイトについて</a>
+
 

@@ -10,7 +10,7 @@
      <p>おそうじフォトにお掃除・洗い物などの前後の写真を投稿してみんなで「がんばった」気持ちを共有しましょう！みんなでやればお掃除も楽になるはず？
      <p><a class="btn" href=@{PublicHomeR}>おそうじフォトを見る&raquo;</a></p>
   <div class="span4">
-     <h2>モバイルアプリでアップロード
+     <h2>アップロード
      <p>おそうじフォトはGoogle+が利用できる携帯端末ならどこからでも利用できます。iPhone, Androidをお持ちの方は下のリンクからアプリをダウンロードして<b>#おそうじフォト</b>というタグをつけておそうじフォトをアップロードしてください.
 
      <a href="http://itunes.apple.com/jp/app/google/id447119634?mt=8" target="_blank"><img src="@{StaticR img_appstore_jpg}" alt="App Store" /></a>
@@ -19,9 +19,9 @@
        <img src="@{StaticR img_android_market_jpg}" alt="Android Market"
      <p><a class="btn" href="#">View details &raquo;</a></p>
   <div class="span4">
-    <h2>Heading
-    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
+    <h2>モバイルサイト
+    <p>モバイルサイトができました. iPhoneやAndroidでおそうじフォトが見やすくなりました。
+    <p><a class="btn" href="@{MobileRootR}">モバイルサイト</a></p>
 
 
 
