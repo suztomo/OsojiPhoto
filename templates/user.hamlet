@@ -1,0 +1,14 @@
+<!-- Main hero unit for a primary marketing message or call to action -->
+<div #"profile" ."span3"
+  <div ."well"
+    <h2 ."profile-name">
+    <img ."profile-pictureURL"
+    <p ."profile-name">
+    ^{followWidget}
+    <p
+      <a ."profile-link" href="#">Google+ページ
+
+<div ."span8"  
+  <div ."well"
+    <div #"messages"
+

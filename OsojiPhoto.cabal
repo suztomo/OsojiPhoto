@@ -1,0 +1,117 @@
+name:              OsojiPhoto
+version:           0.0.0
+license:           BSD3
+license-file:      LICENSE
+author:            Suzuki Tomohiro
+maintainer:        Suzuki Tomohiro
+synopsis:          The greatest Yesod web application ever.
+description:       I'm sure you can say something clever here if you try.
+category:          Web
+stability:         Experimental
+cabal-version:     >= 1.6
+build-type:        Simple
+extra-source-files: include/qq.h
+homepage:          http://OsojiPhoto.yesodweb.com/
+
+Flag dev
+    Description:   Turn on development settings, like auto-reload templates.
+    Default:       False
+
+Flag library-only
+    Description:   Build for use with "yesod devel"
+    Default:       False
+
+library
+    if flag(library-only)
+        Buildable: True
+    else
+        Buildable: False
+
+    exposed-modules: Application
+    other-modules:   Foundation
+                     Import
+                     Model
+                     Settings
+                     Settings.StaticFiles
+                     Handler.Root
+                     Handler.Home
+                     Handler.Profile
+                     Handler.Follow
+                     Handler.News
+                     Handler.Mobile
+                     GooglePlusOAuth
+
+    ghc-options:   -Wall -threaded -O0
+
+    cpp-options:   -DDEVELOPMENT -GDHC7
+    extensions: TemplateHaskell
+                QuasiQuotes
+                OverloadedStrings
+                NoImplicitPrelude
+                CPP
+                OverloadedStrings
+                MultiParamTypeClasses
+                TypeFamilies
+                GeneralizedNewtypeDeriving
+                FlexibleContexts
+                RankNTypes
+    include-dirs: include
+
+executable         OsojiPhoto
+    if flag(library-only)
+        Buildable: False
+
+    if flag(dev)
+        cpp-options:   -DDEVELOPMENT
+        ghc-options:   -Wall -threaded -O0
+    else
+        ghc-options:   -Wall -threaded
+
+    main-is:       main.hs
+
+    extensions: TemplateHaskell
+                QuasiQuotes
+                OverloadedStrings
+                NoImplicitPrelude
+                CPP
+                OverloadedStrings
+                MultiParamTypeClasses
+                TypeFamilies
+                GADTs
+                GeneralizedNewtypeDeriving
+                FlexibleContexts
+
+    build-depends: base                          >= 4          && < 5
+                 , yesod                         == 0.10.1.*
+                 , yesod-core                    == 0.10.1.*
+                 , yesod-auth                    >= 0.8        && < 0.9
+                 , yesod-static                  >= 0.10       && < 0.11
+                 , yesod-default                 >= 0.6        && < 0.7
+                 , yesod-form                    >= 0.4        && < 0.5
+                 , mime-mail                     >= 0.3.0.3    && < 0.5
+                 , clientsession                 >= 0.7.4      && < 0.8
+                 , bytestring                    >= 0.9        && < 0.10
+                 , text                          >= 0.11       && < 0.12
+                 , persistent                    >= 0.8        && < 0.9
+                 , persistent-sqlite     >= 0.8        && < 0.9
+                 , template-haskell
+                 , hamlet                        >= 0.10       && < 0.11
+                 , shakespeare-css               >= 0.10       && < 0.11
+                 , shakespeare-js                >= 0.10       && < 0.12
+                 , shakespeare-text              >= 0.10       && < 0.12
+                 , hjsmin                        >= 0.0.14     && < 0.1
+                 , monad-control                 >= 0.3        && < 0.4
+                 , wai-extra                     >= 1.0        && < 1.2
+                 , yaml                          >= 0.5        && < 0.6
+                 , skein                         == 0.1.0.5
+                 , transformers                  == 0.2.*
+                 , authenticate                  == 1.0.*
+                 , conduit                       == 0.2.*
+                 , http-conduit                  == 1.*
+                 , lifted-base                   == 0.1.*
+                 , aeson                         == 0.6.*
+                 , attoparsec                    == 0.10.*
+                 , containers                    == 0.4.*
+                 , http-types                    == 0.6.*
+                 , tls                           == 0.9.*
+                 , time                          == 1.2.*

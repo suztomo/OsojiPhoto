@@ -1,0 +1,39 @@
+h1{
+    font-size: 18px;
+}
+
+#for-guest {
+    display:none;
+}
+
+#for-login-user {
+    display:none;
+}
+
+#login-user-icon {
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 25px;
+    background-size: auto 20px;
+}
+
+#news-notification {
+    display: none;
+}
+
+#footer{
+    clear: both;
+    text-align: center;
+}
+
+.osoji-photo{
+    padding: 3px;
+    display: inline;
+}
+
+.follow-button form .btn{
+    display: none;
+}
+
+.googlePlusOAuthLogin a{
+}

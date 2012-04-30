@@ -1,0 +1,62 @@
+!!!
+<html>
+    <head
+        <title>#{pageTitle pc}
+        <script type="text/javascript" src="/static/js/jquery.min.js"
+        <script type="text/javascript" src="/static/js/bootstrap-dropdown.js"
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css"
+        <link rel="stylesheet" href="/static/css/style.css"
+
+        ^{pageHead pc}
+
+    <body style="padding-top:60px"
+        <div class="navbar navbar-fixed-top"
+          <div class="navbar-inner">
+            <div class="container">
+              <a class="brand" href="/">おそうじフォト</a>
+              <div class="nav-collapse">
+                <ul class="nav">
+                  <li class="home-link"><a href="@{HomeR}">ホーム</a></li>
+                  <li class="public-home-link">
+                     <a href="@{PublicHomeR}">最新フォト
+                  <li class="about-link">
+                     <a href="@{AboutR}">このサイトについて
+              <ul ."nav pull-right permanent-userinfo" #"for-guest">
+                <li ."dropdown">
+                  <a href="#" ."dropdown-toggle" data-toggle="dropdown"
+                      <span #name>ゲストさん
+                      <b class="caret"
+                  <ul ."dropdown-menu"
+                    <li><a href="@{AuthR LoginR}">ログイン</a>
+
+              <ul ."nav pull-right permanent-userinfo" #"for-login-user">
+                <li ."dropdown">
+                  <a href="#" ."dropdown-toggle" #"login-user-icon" data-toggle="dropdown"
+                      <span #"login-user-name">
+                      <b ."caret"
+                  <ul ."dropdown-menu"
+                    <li><a href="@{HomeR}"><i class="icon-home"></i>ホーム</a>
+                    <li><a href="@{ProfileR}"><i class="icon-user"></i>プロフィール</a>
+                    <li><a href="#"><i class="icon-cog"></i>設定</a>
+                    <li class="divider">
+                    <li><a href="@{AuthR LogoutR}">ログアウト</a>
+              <ul ."nav pull-right" #"news-notification"
+                <li ."dropdown"
+                  <a href="#" ."dropdown-toggle" data-toggle="dropdown"
+                    <span>お知らせ
+                    <b class="caret"
+                  <ul ."dropdown-menu news-notification" #"news-notification-list">
+                    <li>
+                      <a>お知らせはありません
+        <div class="container"
+            ^{pageBody pc}
+            <footer id="footer"
+                <p>&copy;おそうじフォト
+        <script type="text/javascript"
+           window.___gcfg = {lang: 'ja'};
+           (function() {
+           var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+           po.src = 'https://apis.google.com/js/plusone.js';
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+           })(); 
+

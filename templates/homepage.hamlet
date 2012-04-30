@@ -1,0 +1,29 @@
+<!-- Main hero unit for a primary marketing message or call to action -->
+<div class="hero-unit" style="background-image: url('/static/img/top_back.jpg')">
+  <h1 style="background-color: rgba(255,255,255,0.6); padding:20px">おそうじフォト</h1>
+  <p class="on-top-photo" style="background-color: rgba(255,255,255,0.6); padding:10px">掃除、洗濯、皿洗い...面倒くさいけどやったことをシェアしてみませんか？<br />おそうじフォトは日々の面倒なタスクを少し楽しみにできるかもしれないサイトです.</p>
+  <img src="" />
+  <p><a class="btn primary large" href="@{AboutR}">もっと詳しく&raquo;</a></p>
+<div class="row">
+  <div class="span4" >
+     <h2>おそうじフォトって</h2>
+     <p>おそうじフォトにお掃除・洗い物などの前後の写真を投稿してみんなで「がんばった」気持ちを共有しましょう！みんなでやればお掃除も楽になるはず？
+     <p><a class="btn" href=@{PublicHomeR}>おそうじフォトを見る&raquo;</a></p>
+  <div class="span4">
+     <h2>モバイルアプリでアップロード
+     <p>おそうじフォトはGoogle+が利用できる携帯端末ならどこからでも利用できます。iPhone, Androidをお持ちの方は下のリンクからアプリをダウンロードして<b>#おそうじフォト</b>というタグをつけておそうじフォトをアップロードしてください.
+
+     <a href="http://itunes.apple.com/jp/app/google/id447119634?mt=8" target="_blank"><img src="@{StaticR img_appstore_jpg}" alt="App Store" /></a>
+
+     <a href="https://market.android.com/details?id=com.google.android.apps.plus&amp;hl=ja" target="_blank">
+       <img src="@{StaticR img_android_market_jpg}" alt="Android Market"
+     <p><a class="btn" href="#">View details &raquo;</a></p>
+  <div class="span4">
+    <h2>Heading
+    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+    <p><a class="btn" href="#">View details &raquo;</a></p>
+
+
+
+
+

@@ -1,0 +1,26 @@
+!!!
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>#{pageTitle pc}
+    <link rel="stylesheet" href="/static/css/jquery.mobile-1.1.0.min.css" />
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/jquery.mobile-1.1.0.min.js"></script>
+    ^{pageHead pc}
+<body>
+<div data-role="page" data-theme="d" data-content-theme="d">
+    <div data-role="header" data-theme="c" data-content-theme="c">
+        <h1>#{pageTitle pc}
+    <div data-role="content">
+        ^{pageBody pc}
+    <div data-role="footer" data-theme="c" data-content-theme="c">
+        <h4>OsojiPhoto
+    <script type="text/javascript"
+               window.___gcfg = {lang: 'ja'};
+               (function() {
+               var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+               po.src = 'https://apis.google.com/js/plusone.js';
+               var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+               })();

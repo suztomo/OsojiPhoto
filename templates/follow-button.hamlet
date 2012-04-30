@@ -1,0 +1,11 @@
+<div ."follow-button"
+  <form method=post action="#" #"form-#{fvId targetIdInput}"
+    <p ."post-text-area"
+      #{extra}
+      ^{fvInput targetIdInput}
+      <a href="#" #"submit-#{fvId targetIdInput}" ."btn">Follow
+  <form method=post action="#" #"remove-form-#{fvId targetIdInput}"
+    <p ."post-text-area"
+      #{extra}
+      ^{fvInput targetIdInput}
+      <a href="#" #"remove-submit-#{fvId targetIdInput}" ."btn btn-success">Following
