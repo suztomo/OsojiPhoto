@@ -11,6 +11,8 @@ import Handler.Root hiding (userToJson)
 
 followee :: (Entity Follow) -> Key SqlPersist OsojiUser
 followee (Entity _ f) = followToUserId f
+following :: (Entity Follow) -> Key SqlPersist User
+following (Entity _ f) = followFromUserId f
 
 getFollowingMessagesR :: Handler RepJson
 getFollowingMessagesR = do
@@ -23,6 +25,14 @@ getFollowingMessagesR = do
                           postHandler posts
                                              
 
+osojiUserToJson (Entity _ u) = object [("googleId", (osojiUserGoogleId u)),
+                                  ("name" , (osojiUserName u)),
+                                  ("imageURL", (osojiUserImageURL u))
+                                 ]
+
+userToJson (Entity _ u) = object [("email", (userEmail u))
+                                 ,("ident", (userIdent u))]
+                                  
 
 getFollowingUsersR :: Handler RepJson
 getFollowingUsersR = do
@@ -32,12 +42,17 @@ getFollowingUsersR = do
     Just (Entity k _) -> do
                follows <- runDB $ selectList [ FollowFromUserId ==. k ] [ Desc FollowId ]
                followedUsers <- runDB $ selectList [ OsojiUserId <-. (followee <$> follows) ] [ Desc OsojiUserGoogleId ]
-               jsonToRepJson $ array $ map userToJson followedUsers
-                     where userToJson (Entity _ u) =
-                               object [("googleId", (osojiUserGoogleId u)),
-                                        ("name" , (osojiUserName u)),
-                                        ("imageURL", (osojiUserImageURL u))
-                                       ]
+               jsonToRepJson $ array $ map osojiUserToJson followedUsers
+
+
+-- Get followers by user's id. This ID doesn't any relationship with Google ID
+getFollowersR :: OsojiUserId -> Handler RepJson
+getFollowersR userId = do
+  follows <- runDB $ selectList [ FollowToUserId ==. userId ] []
+  followingUsers <- runDB $ selectList [ UserId <-. (following <$> follows) ] []
+  let users = array $ map userToJson followingUsers
+  jsonToRepJson $ object [("users", users)]
+
 getIsFollowingR :: String -> Handler RepJson
 getIsFollowingR googleId = do
   (Entity k _) <- requireAuth  

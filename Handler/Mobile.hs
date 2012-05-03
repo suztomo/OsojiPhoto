@@ -21,16 +21,16 @@ mobileLayout widget = do
 getMobileRootR :: Handler RepHtml
 getMobileRootR = do
   mobileLayout $ do
-    setTitle "Hello Mobile"
+    setTitle "おそうじフォト"
     $(widgetFile "mobile-home")    
 
 getMobileAboutR :: Handler RepHtml
 getMobileAboutR =
   mobileLayout $ do
-    setTitle "おそうじフォト"
+    setTitle "このサイトについて"
     $(widgetFile "mobile-about")
 
 getMobilePublicR :: Handler RepHtml
 getMobilePublicR = mobileLayout $ do
-  setTitle "おそうじフォト"
+  setTitle "最新のおそうじフォト"
   $(widgetFile "mobile-public-photos")

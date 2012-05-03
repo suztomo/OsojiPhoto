@@ -17,6 +17,7 @@
 /user/#Text UserR GET
 /user/#Text/profile.json UserInfoR GET
 /user/#Text/messages.json UserOsojiMessagesR GET
+/user/#OsojiUserId/followers.json FollowersR GET
 /news/read/#NewsId ReadNewsR GET
 /news/num/#Int/page/#Int ListNewsR GET
 /profile/follow/users.json FollowingUsersR GET
