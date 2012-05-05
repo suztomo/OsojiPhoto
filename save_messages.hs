@@ -23,12 +23,16 @@ import Control.Monad (void)
 import Control.Applicative
 import Data.Time.Clock
 import Data.Text (unpack, pack, append)
+import qualified Data.Aeson as AE
 import Yesod
 import Import
 import Handler.Follow
 import Database.Persist.Store
+import Network.AMQP hiding (Message)
+import qualified Data.ByteString.Lazy.Char8 as BL
 
 import Model
+import AMQPMsgs
 
 -- Gets Images from the following structure
 -- It returns empty list Images if the entry doesn't have any images
@@ -121,7 +125,7 @@ printMessages filepath = do
     Right msgs -> printOsojiMessages msgs
 
 
-dbFileName = "OsojiPhoto.sqlite3"
+dbFileName = "OsojiPhoto_production.sqlite3"
 
 saveOsojiMessage :: OsojiMessage -> SqlPersist IO (Key SqlPersist (OsojiPostGeneric SqlPersist))
 saveOsojiMessage (GMsg (GUser googleId name userImageURL userLink) verb
@@ -162,14 +166,39 @@ saveOsojiMessageIfNew omsg@(GMsg _ _ _ _ linkURL) = do
       return key
     Nothing -> do
       liftIO $ putStrLn $ "Saved one message: " ++ linkURL
-      saveOsojiMessage omsg
+      k <- saveOsojiMessage omsg
+      publishOneMessage k
+      return k
+
+publishOneMessage :: (Key SqlPersist (OsojiPost)) -> SqlPersist IO ()
+publishOneMessage key = do
+  post <- getJust key
+  follows <- selectList [ FollowToUserId ==. (osojiPostUserId post) ] []
+  muser <- selectFirst [ OsojiUserId ==. (osojiPostUserId post) ] []
+  case muser of
+    Nothing -> return ()
+    Just (Entity _ ouser) -> do
+      followees <- selectList [ UserId <-. (following <$> follows) ] []
+      let msg = NewPostMsg {
+           message = pack (osojiPostMessage post),
+           link = "http://test.com",
+           name = pack (osojiUserName ouser),
+           recipients = recipients followees
+                 }
+      liftIO $ putMsgToExchange msg
+      return ()
+          where
+            recipients :: [Entity User] -> [(Text, Text)]
+            recipients fs = map (\(Entity _ v) -> (userGivenName v, userEmail v)) fs
+                          
 
 saveOsojiMessages :: [OsojiMessage] -> IO [(Key SqlPersist (OsojiPost))]
 --saveOsojiMessages msgs = putStrLn "hello"
 saveOsojiMessages msgs = withSqliteConn dbFileName $ runSqlConn $ do
-                           sequence $ map saveOsojiMessageIfNew msgs
+  keys <- sequence $ map saveOsojiMessageIfNew msgs
+  return keys
 --                           createOsojiMessage $ msgs !! 0
-  
+
 
 saveMessagesOnFileName :: String -> IO ()
 saveMessagesOnFileName filepath = do
