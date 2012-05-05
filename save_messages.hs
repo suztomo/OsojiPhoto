@@ -181,7 +181,8 @@ publishOneMessage key = do
       followees <- selectList [ UserId <-. (following <$> follows) ] []
       let msg = NewPostMsg {
            message = pack (osojiPostMessage post),
-           link = "http://test.com",
+           link = "http://osojiphoto.com/user/" `mappend`
+                  (pack $ osojiUserGoogleId ouser),
            name = pack (osojiUserName ouser),
            recipients = recipients followees
                  }
