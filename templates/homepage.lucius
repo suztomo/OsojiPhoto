@@ -1,0 +1,13 @@
+h1 {
+
+}
+h2##{h2id} {
+
+}
+
+.hero-unit {
+    padding: 30px
+}
+.hero-unit p.on-top-photo{
+    font-size: 1.0em;
+}
