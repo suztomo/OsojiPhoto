@@ -19,7 +19,7 @@
                 <ul class="nav">
                   <li class="home-link"><a href="@{HomeR}">ホーム</a></li>
                   <li class="public-home-link">
-                     <a href="@{PublicHomeR}">最新フォト
+                     <a href="@{PublicHomeR}">最新おそうじフォト
                   <li class="about-link">
                      <a href="@{AboutR}">このサイトについて
               <ul ."nav pull-right permanent-userinfo" #"for-guest">

@@ -1,3 +1,8 @@
-<h1>すべてのフォト
-<div #messages
+<h1>最新おそうじフォト
+<div ."row"
+  <div ."span4 " #"message-col0"
+  <div ."span4 " #"message-col1"
+  <div ."span4 " #"message-col2"
 
+
+<div #messages

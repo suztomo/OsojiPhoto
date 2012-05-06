@@ -21,8 +21,11 @@ import Database.Persist.TH
 import Control.Monad.IO.Class (liftIO)
 import Control.Monad (void)
 import Control.Applicative
+import Data.Maybe
 import Data.Time.Clock
 import Data.Text (unpack, pack, append)
+import Network.HTTP.Base
+import Text.Regex.Posix
 import qualified Data.Aeson as AE
 import Yesod
 import Import
@@ -33,6 +36,17 @@ import qualified Data.ByteString.Lazy.Char8 as BL
 
 import Model
 import AMQPMsgs
+
+-- Converts url in the feed from Google Plus because it contains google image resize
+-- API. Example:
+--  "http://images0-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&resize_h=100&url=https%3A%2F%2Flh6.googleusercontent.com%2F-RcJ3LWmUbuY%2FTwQ8FbUYGHI%2FAAAAAAAAAMk%2FcRvF5OMXg0g%2Fs0-d%2F12%252B-%252B2"
+--  -> "https://lh6.googleusercontent.com/-RcJ3LWmUbuY/TwQ8FbUYGHI/AAAAAAAAAMk/cRvF5OMXg0g/s0-d/12%2B-%2B2"
+urlFromGImage :: String -> Maybe String
+urlFromGImage gimage = do
+  let us = gimage =~ ("url=(https?%3A%2F%2F.+)"::String) :: [[String]]
+  case us of
+    (_:(url:_)): _ -> return $ urlDecode $ url
+    [] -> Nothing
 
 -- Gets Images from the following structure
 -- It returns empty list Images if the entry doesn't have any images
@@ -66,7 +80,9 @@ imgsFromJSObject_ obj = do
                          let imgtype = case filetype of
                                          "image/jpeg" -> JPG
                                          "image/png"  -> PNG
-                         return $ Image (fromJSString jss) imgtype
+                             giurl = fromJSString jss
+                             url = fromMaybe giurl (urlFromGImage giurl)
+                         return $ Image url imgtype
 
 -- Get User from actor
 -- "actor" : {

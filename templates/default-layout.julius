@@ -90,6 +90,10 @@ function resizeImageURL(url, height) {
     return "http://images0-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&resize_h="+height+"&url=" + encodeURIComponent(url)
 }
 
+function resizeImageURLWidth(url, width) {
+    return "http://images0-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&resize_w="+width+"&url=" + encodeURIComponent(url)
+}
+
 function showPermanentUserInfoForUser(userInfo) {
     var resizedURL = resizeImageURL(userInfo.pictureURL, 25);
     $("#login-user-icon").css('background-image', 'url('+resizedURL+')');

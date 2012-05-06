@@ -2,6 +2,57 @@ $(document).ready(function() {
 $.ajax({
   url: "@{OsojiMessagesR}",
   dataType: 'json',
-  success: onMessageLoad
+  success: onMessageLoadToRows
 });
 })
+
+function onMessageLoadToRows(data) {
+    var i;
+    k = data;
+    var messages = data.messages;
+    var images = data.images;
+    var messageToImage = {};
+    userIdToUser = {};
+    var users = data.users;
+    for (i=0; i<users.length; ++i) {
+        var user = users[i];
+        userIdToUser[user.id] = user;
+    }
+    for (i=0; i<images.length; ++i) {
+        var img = images[i];
+        if (typeof messageToImage[img.postId] == "undefined") {
+            messageToImage[img.postId] = [];
+        }
+        messageToImage[img.postId].push(img);
+    }
+
+    messages = messages.filter(function(e) {
+        return typeof (messageToImage[e.id]) != 'undefined';
+    });
+    var messageColNum = 3;
+    for (i=0; i<messages.length; ++i) {
+        var m = messages[i];
+        var d = $("<div class='message-box thumbnail' />");
+        var imgList = messageToImage[m.id];
+        for (j=imgList.length-1; j>=0; j--) {
+            var img = imgList[j];
+            var w = 200;
+            var resizedImageUrl = resizeImageURLWidth(img.imageURL, w);
+            d.append($("<img height='"+w+"' src='"+ resizedImageUrl +"' />"));
+        }
+        var caption = $("<div class='caption' />").text(m.message);
+        d.append(caption);
+        caption.append($('<g:plusone size="small" annotation="inline" href="'
+                          + m.googleLink +'"></g:plusone>'));
+        var u = userIdToUser[m.userId];
+        if (typeof u != "undefined") {
+            var userName = $("<a href='"+u.link+"' class='user-name' />").text(u.name);
+            caption.append(userName);
+        }
+        var boxTarget = "#message-col" + (i % messageColNum);
+        console.log(boxTarget);
+        $(boxTarget).append(d);
+    }
+}
+
+
