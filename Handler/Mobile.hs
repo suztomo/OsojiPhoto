@@ -1,7 +1,7 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# LANGUAGE QuasiQuotes, TemplateHaskell, MultiParamTypeClasses,
     OverloadedStrings, TypeFamilies, GADTs, FlexibleContexts, FlexibleInstances,
-    CPP #-}
+    RankNTypes, CPP #-}
 
 module Handler.Mobile where
 import Import
