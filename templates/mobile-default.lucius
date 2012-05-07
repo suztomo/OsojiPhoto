@@ -1,0 +1,8 @@
+a.user-name {
+    display: block;
+    clear: both;
+}
+
+.follow-button form .btn{
+    display: none;
+}

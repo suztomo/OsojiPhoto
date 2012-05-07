@@ -1,0 +1,18 @@
+function setUserProfile(data) {
+    console.log(data);
+    var user = data.users[0];
+    $(".profile-name").text(user.name);
+    $(".profile-pictureURL").attr("src", user.pictureURL);
+    $(".profile-link").attr("href", user.googleLink);
+}
+
+$(document).ready(function() {
+$.ajax({
+  url: "@{UserOsojiMessagesR target}",
+  dataType: 'json',
+  success: function(d) {
+      setUserProfile(d);
+      onMessageLoad(d);
+  }
+});
+})
