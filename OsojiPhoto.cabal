@@ -39,6 +39,7 @@ library
                      Handler.Follow
                      Handler.News
                      Handler.Mobile
+                     Handler.Shared
                      GooglePlusOAuth
 
     ghc-options:   -Wall -threaded -O0

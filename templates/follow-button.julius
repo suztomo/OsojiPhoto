@@ -44,13 +44,16 @@ onLogin(function(){
     });
 });
 */
-$((function(){
+// default-layout/mobile-default is responsible to trigger body.login event
+$('body').bind('login', function(ev, userInfo) {
     $.get("@{IsFollowingR (unpack targetId)}", null, function(data){
+        console.log(data);
         if (data.following == "true") {
             $("#remove-submit-#{fvId targetIdInput}").fadeIn();
         } else {
             $("#submit-#{fvId targetIdInput}").fadeIn();
         }        
     });
-})());
+});
+;
 

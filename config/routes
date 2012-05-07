@@ -30,3 +30,4 @@
 /m  MobileRootR GET
 /m/about  MobileAboutR GET
 /m/public MobilePublicR GET
+/m/user/#Text MobileUserR GET

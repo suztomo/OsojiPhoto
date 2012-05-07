@@ -9,6 +9,8 @@ import Prelude
 import Yesod
 import Settings (widgetFile)
 import Text.Hamlet (hamletFile)
+import Handler.Shared
+
 -- import Foundation (mobileLayout)
 
 mobileLayout widget = do
@@ -34,3 +36,10 @@ getMobilePublicR :: Handler RepHtml
 getMobilePublicR = mobileLayout $ do
   setTitle "最新のおそうじフォト"
   $(widgetFile "mobile-public-photos")
+
+getMobileUserR :: Text -> Handler RepHtml
+getMobileUserR target = do
+  ((_, followWidget), _) <- generateFormPost (followButton target)
+  mobileLayout $ do
+    setTitle "ユーザ"
+    $(widgetFile "mobile-user")

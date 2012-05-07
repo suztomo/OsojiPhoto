@@ -1,4 +1,8 @@
-function onMessageLoad(data) {
+/**
+ data : dictionary that comes from OsojiMessageR / MessageR
+ messageCols : list of jQuery DOM objects
+**/
+function onMessageLoad(data, messageCols) {
     var i;
     k = data;
     var messages = data.messages;
@@ -17,30 +21,36 @@ function onMessageLoad(data) {
         }
         messageToImage[img.postId].push(img);
     }
+    if (typeof messageCols == 'undefined') {
+        messageCols = [$("#messages")];
+    }
+    var messageColIndex = 0;
+    var messageColNum = messageCols.length;
     for (i=0; i<messages.length; ++i) {
         var m = messages[i];
-        var d = $("<div class='message-box' />");
+        var d = $("<div class='message-box thumbnail' />");
         var imgList = messageToImage[m.id];
-        if (typeof imgList == 'undefined') {
-            continue;
+        for (j=imgList.length-1; j>=0; j--) {
+            var img = imgList[j];
+            var w = 200;
+            var resizedImageUrl = resizeImageURLWidth(img.imageURL, w);
+            d.append($("<img height='"+w+"' src='"+ resizedImageUrl +"' />"));
         }
-        for (j=0; j<imgList.length; j++) {
-            var img = imgList[j]; // use the first one 
-            d.append($("<p class='osoji-photo'><a href='"+m.googleLink+"'><img height='100' src='"+ img.imageURL +"' /></a></p>"));
-            break;
-        }
-        d.append($("<p />").text(m.message));
-        d.append($('<g:plusone size="small" annotation="inline" href="'+ m.googleLink
-                   +'"></g:plusone>'));
+        var caption = $("<div class='caption' />").text(m.message);
+        d.append(caption);
+        caption.append($('<g:plusone size="small" annotation="inline" href="'
+                          + m.googleLink +'"></g:plusone>'));
         var u = userIdToUser[m.userId];
         if (typeof u != "undefined") {
             var userName = $("<a href='"+u.link+"' class='user-name' />").text(u.name);
-            d.append(userName);
+            caption.append(userName);
         }
-        $("#messages").append(d);
+
+
+        messageCols[messageColIndex].append(d);
+        messageColIndex = (messageColIndex + 1) % messageColNum;
     }
 }
-
 
 $((function(){
     $.get("@{SelfProfileR}", null, function(data){

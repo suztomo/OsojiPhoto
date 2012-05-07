@@ -8,6 +8,9 @@ import Import
 import Database.Persist.Store
 import Data.Text (unpack, pack)
 import Settings.StaticFiles
+import Handler.Shared
+import Handler.Mobile
+
 
 -- This is a handler function for the GET request method on the RootR
 -- resource pattern. All of your resource patterns are defined in
@@ -36,7 +39,6 @@ getPublicHomeR = defaultLayout $ do
                  $(widgetFile "publichome")
 --                 $(juliusFile "publichome")
 --                 toWidgetHead $ $(coffeeFile "/Users/suztomo/Documents/OsojiPhoto/OsojiPhoto/templates/coffee-test.coffee")
-
 
 userToJson :: (Route OsojiPhoto -> Text) -> User -> Value
 userToJson render user = object $ map iter [
@@ -132,6 +134,8 @@ postHandler posts = do
                  [("name", osojiUserName ouser),
                   ("googleId", osojiUserGoogleId ouser),
                   ("link", unpack . render $ UserR (pack (osojiUserGoogleId ouser))),
+                  ("mlink", unpack . render $
+                          MobileUserR (pack (osojiUserGoogleId ouser))),
                   ("googleLink",  osojiUserLink ouser),
                   ("id", show userId),
                   ("pictureURL", osojiUserImageURL ouser)
@@ -142,20 +146,7 @@ getOsojiMessagesR :: Handler RepJson
 getOsojiMessagesR = do
   kposts <- runDB $ selectList [] [Desc OsojiPostId]
   postHandler kposts
-
                  
-data FollowForm = FollowForm {
-      targetGoogleId :: Text
-      } deriving Show
-
-
-followButton :: Text -> Html -> MForm OsojiPhoto OsojiPhoto (FormResult FollowForm, Widget)
-followButton targetId extra = do
-  (textRes, targetIdInput) <- mreq hiddenField "" (Just targetId)
-  let rs = FollowForm <$> textRes
-  let w = do 
-        $(widgetFile "follow-button")
-  return (rs, w)
 
 getUserR :: Text -> Handler RepHtml
 getUserR target = do
@@ -186,6 +177,3 @@ getDeleteMessageR postId = do
               case ouserGoogleId == loginUserGoogleId of
                 True -> jsonToRepJson $ object [("error", "OK" :: Text)] 
                 False -> jsonToRepJson $ object [("error", "unauthorized" :: Text)]
-
-        
-                

@@ -1,8 +1,9 @@
 <h1>最新おそうじフォト
 <div ."row"
-  <div ."span4 " #"message-col0"
-  <div ."span4 " #"message-col1"
-  <div ."span4 " #"message-col2"
+  <div ."span3 " #"message-col0"
+  <div ."span3 " #"message-col1"
+  <div ."span3 " #"message-col2"
+  <div ."span3 " #"message-col3"
 
 
 <div #messages

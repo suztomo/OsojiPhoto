@@ -29,7 +29,7 @@ function onMessageLoadToRows(data) {
     messages = messages.filter(function(e) {
         return typeof (messageToImage[e.id]) != 'undefined';
     });
-    var messageColNum = 3;
+    var messageColNum = 4;
     for (i=0; i<messages.length; ++i) {
         var m = messages[i];
         var d = $("<div class='message-box thumbnail' />");
@@ -50,7 +50,6 @@ function onMessageLoadToRows(data) {
             caption.append(userName);
         }
         var boxTarget = "#message-col" + (i % messageColNum);
-        console.log(boxTarget);
         $(boxTarget).append(d);
     }
 }

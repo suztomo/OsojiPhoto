@@ -6,12 +6,13 @@ function setUserProfile(data) {
 }
 
 $(document).ready(function() {
+var messageCols = [$('#message-col0'), $('#message-col1'), $('#message-col2')];
 $.ajax({
   url: "@{UserOsojiMessagesR target}",
   dataType: 'json',
   success: function(d) {
       setUserProfile(d);
-      onMessageLoad(d);
+      onMessageLoad(d, messageCols);
   }
 });
 })

@@ -34,7 +34,8 @@ function onMessageLoad(data) {
                    +'"></g:plusone>'));
         var u = userIdToUser[m.userId];
         if (typeof u != "undefined") {
-            var userName = $("<a href='"+u.link+"' class='user-name' />").text(u.name);
+            var userName = $("<a href='"+u.mlink
+                             o+"' class='user-name' />").text(u.name);
             d.append(userName);
         }
         $("#messages").append(d);

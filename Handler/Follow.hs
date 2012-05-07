@@ -7,6 +7,7 @@ module Handler.Follow where
 import Import
 import Database.Persist.Sqlite
 import Data.Text (unpack)
+import Handler.Shared
 import Handler.Root hiding (userToJson)
 
 followee :: (Entity Follow) -> Key SqlPersist OsojiUser
