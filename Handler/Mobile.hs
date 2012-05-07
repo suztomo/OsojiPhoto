@@ -12,7 +12,7 @@ import Text.Hamlet (hamletFile)
 import Handler.Shared
 
 -- import Foundation (mobileLayout)
-
+mobileLayout :: forall sub a. GWidget sub OsojiPhoto a -> GHandler sub OsojiPhoto RepHtml
 mobileLayout widget = do
         mmsg <- getMessage
         pc <- widgetToPageContent $ do
@@ -34,7 +34,7 @@ getMobileAboutR =
 
 getMobilePublicR :: Handler RepHtml
 getMobilePublicR = mobileLayout $ do
-  setTitle "最新のおそうじフォト"
+  setTitle "最新フォト"
   $(widgetFile "mobile-public-photos")
 
 getMobileUserR :: Text -> Handler RepHtml
